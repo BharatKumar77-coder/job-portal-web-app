@@ -1,5 +1,7 @@
 import {Application} from "../models/application.model.js";
 import {Job} from "../models/job.model.js";
+import axios from "axios";
+import { User } from "../models/user.model.js";
 
 
 export const applyJob = async (req, res) => {
@@ -129,5 +131,34 @@ export const updateStatus = async (req, res) => {
 
     } catch (error) {
         console.log(error);
+    }
+};
+
+// downloadApplicantResume
+export const downloadApplicantResume = async (req, res) => {
+    try {
+        const { applicantId } = req.params;
+
+        const user = await User.findById(applicantId);
+
+        if (!user || !user.profile?.resume) {
+            return res.status(404).send("Resume not found");
+        }
+
+        const response = await axios.get(user.profile.resume, {
+            responseType: "stream",
+        });
+
+        res.setHeader("Content-Type", "application/pdf");
+        res.setHeader(
+            "Content-Disposition",
+            `attachment; filename="${user.profile.resumeOriginalName || "resume.pdf"}"`
+        );
+
+        response.data.pipe(res);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Download failed");
     }
 };

@@ -87,16 +87,15 @@ export const login = async (req, res) => {
         );
 
         return res
+            .status(200)
             .cookie("token", token, {
                 httpOnly: true,
                 sameSite: "lax",
-                maxAge: 24 * 60 * 60 * 1000
             })
-            .status(200)
             .json({
                 message: `Welcome back ${user.fullname}`,
                 user,
-                success: true
+                success: true,
             });
 
     } catch (error) {
