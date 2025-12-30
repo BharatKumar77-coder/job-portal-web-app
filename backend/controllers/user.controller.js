@@ -86,11 +86,15 @@ export const login = async (req, res) => {
             { expiresIn: "1d" }
         );
 
+        const isProduction = process.env.NODE_ENV === "production";
         return res
             .status(200)
             .cookie("token", token, {
                 httpOnly: true,
-                sameSite: "lax",
+                // LOGIC: If production, use 'none' (for Vercel connection). 
+                // If local, use 'lax' (standard browser behavior).
+                sameSite: isProduction ? 'none' : 'lax',
+                secure: isProduction
             })
             .json({
                 message: `Welcome back ${user.fullname}`,
