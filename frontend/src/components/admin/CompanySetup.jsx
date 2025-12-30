@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Navbar from "../shared/Navbar.jsx";
+import NavBar from "../shared/NavBar";
 import { Button } from '../ui/button'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import { Label } from '../ui/label'
@@ -76,7 +76,7 @@ const CompanySetup = () => {
 
     return (
         <div>
-            <Navbar />
+            <NavBar />
             <div className='max-w-xl mx-auto my-10'>
                 <form onSubmit={submitHandler}>
                     <div className='flex items-center gap-5 p-8'>

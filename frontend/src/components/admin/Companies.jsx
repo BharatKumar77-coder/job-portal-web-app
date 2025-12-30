@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import NavBar from '../shared/NavBar.jsx'
+import NavBar from '../shared/NavBar'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import CompaniesTable from './CompaniesTable'
