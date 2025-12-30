@@ -44,6 +44,8 @@ export const Login = () => {
             }
         } catch (error) {
             console.log(error);
+            toast.error(error?.response?.data?.message || "Something went wrong");
+            
         } finally {
             dispatch(setLoading(false));
         }
