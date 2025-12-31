@@ -2,7 +2,7 @@ import { Company } from "../models/company.model.js";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 
-// ================= CREATE COMPANY =================
+
 export const companyName = async (req, res) => {
     try {
         const { companyName } = req.body;
@@ -39,7 +39,7 @@ export const companyName = async (req, res) => {
     }
 };
 
-// ================= GET COMPANIES =================
+
 export const getCompany = async (req, res) => {
     try {
         const companies = await Company.find({ userId: req.id });
@@ -55,7 +55,7 @@ export const getCompany = async (req, res) => {
     }
 };
 
-// ================= GET COMPANY BY ID =================
+
 export const getCompanyById = async (req, res) => {
     try {
         const company = await Company.findById(req.params.id);
@@ -78,7 +78,7 @@ export const getCompanyById = async (req, res) => {
     }
 };
 
-// ================= UPDATE COMPANY =================
+
 export const updateCompany = async (req, res) => {
     try {
         const companyId = req.params.id;
@@ -98,7 +98,6 @@ export const updateCompany = async (req, res) => {
         company.website = website || company.website;
         company.location = location || company.location;
 
-        // ✅ CORRECT WAY TO GET LOGO FILE
         const logoFile = req.files?.find(
             file =>
                 file.fieldname === "logo" ||

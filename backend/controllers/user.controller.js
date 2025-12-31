@@ -5,7 +5,6 @@ import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 import axios from "axios";
 
-/* ================= REGISTER ================= */
 export const register = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, password, role } = req.body;
@@ -21,7 +20,6 @@ export const register = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // ✅ CORRECT WAY TO GET PROFILE PHOTO
         const profilePhotoFile = req.files?.find(
             file => file.fieldname === "profilePhoto" || file.fieldname === "file"
         );
@@ -57,7 +55,7 @@ export const register = async (req, res) => {
     }
 };
 
-/* ================= LOGIN ================= */
+
 export const login = async (req, res) => {
     try {
         const { email, password, role } = req.body;
@@ -108,7 +106,7 @@ export const login = async (req, res) => {
     }
 };
 
-/* ================= LOGOUT ================= */
+
 export const logout = async (req, res) => {
     return res
         .cookie("token", "", { maxAge: 0 })
@@ -116,7 +114,7 @@ export const logout = async (req, res) => {
         .json({ message: "Logout successful", success: true });
 };
 
-/* ================= UPDATE PROFILE ================= */
+
 export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
@@ -132,7 +130,7 @@ export const updateProfile = async (req, res) => {
         user.profile.bio = bio || user.profile.bio;
         user.profile.skills = skills ? skills.split(",") : user.profile.skills;
 
-        // ✅ CORRECT WAY TO GET RESUME
+   
         const resumeFile = req.files?.find(
             file => file.fieldname === "resume" || file.fieldname === "file"
         );
@@ -180,14 +178,12 @@ export const downloadResume = async (req, res) => {
             responseType: "stream"
         });
 
-        // ✅ Force correct PDF download
         res.setHeader("Content-Type", "application/pdf");
         res.setHeader(
             "Content-Disposition",
             `attachment; filename="${user.profile.resumeOriginalName || "resume.pdf"}"`
         );
 
-        // Pipe file stream to browser
         response.data.pipe(res);
 
     } catch (error) {

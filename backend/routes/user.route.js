@@ -18,7 +18,7 @@ router.route("/register").post(upload.any(), register);
 // Login
 router.route("/login").post(login);
 
-// Update profile (resume re-upload FIXED here)
+
 router.route("/updateProfile").post(
     isAuthenticated,
     upload.any(),
