@@ -35,6 +35,11 @@ app.use("/api/v1/company", companyRoutes);
 app.use("/api/v1/jobs", jobRoutes);
 app.use("/api/v1/applications", applicationRoutes);
 
+// Keep-Alive Route
+app.get('/ping', (req, res) => {
+  res.status(200).send('Pong! Server is awake.');
+});
+
 app.listen(PORT, () => {
   connectDB();
   console.log(`Server is running on port ${PORT}`);
