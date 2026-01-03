@@ -8,6 +8,11 @@ export const applyJob = async (req, res) => {
     try {
         const userId = req.id;
         const jobId = req.params.id;
+
+        if(!userId) {
+            return res.status(400).json({ message: "Please register before applying", success: false });
+        };
+
         if(!jobId){
             return res.status(400).json({ message: "Job ID is required", success: false });
         };
