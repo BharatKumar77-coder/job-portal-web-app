@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const BASE_URL = "/api/v1";
 
 export const USER_API_ENDPOINT = `${BASE_URL}/user`;
 export const JOB_API_END_POINT = `${BASE_URL}/jobs`;
