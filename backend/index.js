@@ -17,16 +17,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const corsOptions = {
-  origin: ["http://localhost:5173",
-    "https://job-portal-web-app-beta.vercel.app"
-  ],
-  credentials: true,
-};
-app.use(cors(corsOptions));
-
-
-const PORT = process.env.PORT || 8000;
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 
 
 //API routes
@@ -35,13 +29,7 @@ app.use("/api/v1/company", companyRoutes);
 app.use("/api/v1/jobs", jobRoutes);
 app.use("/api/v1/applications", applicationRoutes);
 
-// Keep-Alive Route
-app.get('/ping', (req, res) => {
-  res.status(200).send('Pong! Server is awake.');
-});
 
-app.listen(PORT, () => {
-  connectDB();
-  console.log(`Server is running on port ${PORT}`);
-});
+connectDB();
+export default app;
 
